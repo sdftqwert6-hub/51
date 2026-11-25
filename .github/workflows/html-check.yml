@@ -1,0 +1,26 @@
+name: HTML Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-html:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Получение файлов проекта
+        uses: actions/checkout@v4
+
+      - name: Настройка Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Установка html-validate
+        run: npm install --global html-validate
+
+      - name: Проверка index.html
+        run: html-validate index.html
